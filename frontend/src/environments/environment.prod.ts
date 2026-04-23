@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://vdp-backend.onrender.com/api'
+  apiUrl: '/api'   // En production, même domaine; sinon remplacez par votre URL complète
 };

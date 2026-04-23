@@ -15,14 +15,8 @@ const app  = express();
 const PORT = process.env.PORT || 3000;
 
 // ── Middlewares globaux ──────────────────────────────────────
-const allowedOrigins = [
-  'http://localhost:4400',
-  'http://127.0.0.1:4400',
-  process.env.FRONTEND_URL,
-].filter(Boolean);
-
 app.use(cors({
-  origin: allowedOrigins,
+  origin: ['http://localhost:4400', 'http://127.0.0.1:4400'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
