@@ -6,6 +6,7 @@ const path     = require('path');
 const fs       = require('fs');
 const { v4: uuidv4 } = require('uuid');
 const auth     = require('../middleware/auth.middleware');
+const { log }  = require('../utils/logger');
 const router   = express.Router();
 
 const DB_PATH = path.join(__dirname, '../data/db.json');
@@ -50,8 +51,7 @@ const upload = multer({
 // ── GET /api/events — Public ────────────────────────────────
 router.get('/', (req, res) => {
   const db = readDB();
-  const events = db.events
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
+  const events = db.events.sort((a, b) => new Date(b.date) - new Date(a.date));
   res.json({ success: true, data: events });
 });
 
@@ -68,10 +68,7 @@ router.post('/', auth, (req, res) => {
   const { title, excerpt, category, date, image } = req.body;
 
   if (!title || !excerpt || !date) {
-    return res.status(400).json({
-      success: false,
-      message: 'Titre, extrait et date sont requis'
-    });
+    return res.status(400).json({ success: false, message: 'Titre, extrait et date sont requis' });
   }
 
   const db    = readDB();
@@ -88,6 +85,7 @@ router.post('/', auth, (req, res) => {
   db.events.push(event);
   writeDB(db);
 
+  log('CREATE_EVENT', `Publication créée : "${event.title}"`, req.user?.username, { id: event.id, category: event.category });
   res.status(201).json({ success: true, data: event });
 });
 
@@ -112,6 +110,7 @@ router.put('/:id', auth, (req, res) => {
   };
 
   writeDB(db);
+  log('UPDATE_EVENT', `Publication modifiée : "${db.events[idx].title}"`, req.user?.username, { id: db.events[idx].id });
   res.json({ success: true, data: db.events[idx] });
 });
 
@@ -124,7 +123,6 @@ router.delete('/:id', auth, (req, res) => {
     return res.status(404).json({ success: false, message: 'Événement introuvable' });
   }
 
-  // Supprimer l'image associée si elle existe sur le disque
   const event = db.events[idx];
   if (event.image && event.image.startsWith('/uploads/')) {
     const imgPath = path.join(__dirname, '..', event.image);
@@ -134,6 +132,7 @@ router.delete('/:id', auth, (req, res) => {
   db.events.splice(idx, 1);
   writeDB(db);
 
+  log('DELETE_EVENT', `Publication supprimée : "${event.title}"`, req.user?.username, { id: event.id });
   res.json({ success: true, message: 'Événement supprimé' });
 });
 
@@ -142,10 +141,8 @@ router.post('/upload', auth, upload.single('image'), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ success: false, message: 'Aucun fichier reçu' });
   }
-  res.json({
-    success: true,
-    url: `/uploads/${req.file.filename}`
-  });
+  log('UPLOAD_IMAGE', `Image uploadée : ${req.file.filename}`, req.user?.username, { filename: req.file.filename, size: req.file.size });
+  res.json({ success: true, url: `/uploads/${req.file.filename}` });
 });
 
 // ── Gestion erreur Multer ───────────────────────────────────

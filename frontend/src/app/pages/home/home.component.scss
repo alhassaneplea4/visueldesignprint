@@ -49,13 +49,57 @@ $grey   : #6B6B6B;
 @keyframes floatB { 0%,100%{transform:translate(0,0)} 50%{transform:translate(12px,18px)}  }
 @keyframes floatC { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-10px,-15px)}}
 
+/* Clignotement multi-couleurs — ~3s par couleur, cycle total 21s */
+@keyframes colorBlink {
+  /* Magenta */
+  0%    { color: #E63B7A; opacity: 1; }
+  11%   { color: #E63B7A; opacity: 1; }
+  12%   { color: #E63B7A; opacity: 0; }
+  13%   { color: #F4C430; opacity: 0; }
+  /* Jaune */
+  14%   { color: #F4C430; opacity: 1; }
+  25%   { color: #F4C430; opacity: 1; }
+  26%   { color: #F4C430; opacity: 0; }
+  27%   { color: #00B4D8; opacity: 0; }
+  /* Cyan */
+  28%   { color: #00B4D8; opacity: 1; }
+  39%   { color: #00B4D8; opacity: 1; }
+  40%   { color: #00B4D8; opacity: 0; }
+  41%   { color: #FF3B3B; opacity: 0; }
+  /* Rouge vif */
+  42%   { color: #FF3B3B; opacity: 1; }
+  53%   { color: #FF3B3B; opacity: 1; }
+  54%   { color: #FF3B3B; opacity: 0; }
+  55%   { color: #FFFFFF; opacity: 0; }
+  /* Blanc */
+  56%   { color: #FFFFFF; opacity: 1; }
+  67%   { color: #FFFFFF; opacity: 1; }
+  68%   { color: #FFFFFF; opacity: 0; }
+  69%   { color: #4ADE80; opacity: 0; }
+  /* Vert */
+  70%   { color: #4ADE80; opacity: 1; }
+  81%   { color: #4ADE80; opacity: 1; }
+  82%   { color: #4ADE80; opacity: 0; }
+  83%   { color: #0D0D0D; opacity: 0; }
+  /* Noir + glow */
+  84%   { color: #0D0D0D; text-shadow: 0 0 10px rgba(255,255,255,.9); opacity: 1; }
+  95%   { color: #0D0D0D; opacity: 1; }
+  96%   { color: #0D0D0D; opacity: 0; }
+  97%   { color: #E63B7A; opacity: 0; }
+  100%  { color: #E63B7A; opacity: 1; }
+}
+
 .hero-content { position:relative; z-index:5; max-width:640px; }
 
 .hero-label {
   display:inline-flex; align-items:center; gap:10px;
   margin-bottom:28px; font-size:11px; font-weight:600;
-  letter-spacing:4px; text-transform:uppercase; color:$cyan;
-  &::before { content:''; display:block; width:30px; height:1px; background:$cyan; }
+  letter-spacing:4px; text-transform:uppercase;
+  animation: colorBlink 28s linear infinite;
+  &::before {
+    content:''; display:block; width:30px; height:1px;
+    background: currentColor; /* suit la couleur animée */
+  }
 }
 
 h1 {
@@ -68,6 +112,28 @@ h1 {
 .hero-sub {
   font-size:17px; font-weight:300; line-height:1.7;
   color:rgba(245,245,240,.72); max-width:480px; margin-bottom:44px;
+}
+
+.typewriter-line {
+  display: block;
+  font-weight: 800;
+  font-size: 28px;
+  color: $white;
+  min-height: 36px;
+  margin-bottom: 12px;
+}
+
+.type-cursor {
+  display: inline-block;
+  color: $cyan;
+  font-weight: 300;
+  margin-left: 2px;
+  animation: blink-cursor 0.75s step-end infinite;
+}
+
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
 }
 
 .hero-actions { display:flex; gap:16px; flex-wrap:wrap; }
@@ -142,6 +208,7 @@ h2 {
   &:nth-child(3) { &::before { background:$yellow;  } .service-link { color:$yellow;  } }
   &:nth-child(5) { &::before { background:$magenta; } .service-link { color:$magenta; } }
   &:nth-child(6) { &::before { background:$yellow;  } .service-link { color:$yellow;  } }
+  &:nth-child(8) { &::before { background:$magenta; } .service-link { color:$magenta; } }
 }
 .service-num { font-family:'Bebas Neue',sans-serif; font-size:64px; line-height:1; color:rgba(255,255,255,.05); position:absolute; top:20px; right:24px; }
 .service-icon { width:52px;height:52px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:24px; margin-bottom:24px; background:rgba(255,255,255,.06); }
@@ -222,7 +289,7 @@ $step-colors: $cyan, $magenta, $yellow, $cyan;
 
 .contact-items { display:flex; flex-direction:column; gap:20px; }
 .contact-item { display:flex; align-items:center; gap:16px; }
-.contact-icon { width:44px;height:44px; background:rgba(0,180,216,.12); border:1px solid rgba(0,180,216,.25); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.contact-icon { width:44px;height:44px; background:rgba(0,180,216,.12); border:1px solid rgba(0,180,216,.25); display:flex; align-items:center; justify-content:center; color:#00B4D8; flex-shrink:0; }
 .contact-item-label { display:block; font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:$grey; margin-bottom:2px; }
 .contact-item-value { font-size:15px; color:$white; }
 
@@ -240,6 +307,73 @@ $step-colors: $cyan, $magenta, $yellow, $cyan;
   textarea { resize:vertical; min-height:120px; }
 }
 
+/* ── Team ────────────────────────────────────────────────── */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-bottom: 2px;
+}
+
+.team-card {
+  background: $card;
+  overflow: hidden;
+  transition: transform .35s;
+  &:hover { transform: translateY(-5px); }
+}
+
+.team-avatar {
+  position: relative;
+  height: 240px;
+  background: $ink;
+  overflow: hidden;
+}
+
+.team-avatar-img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center top;
+  display: block;
+}
+
+.team-avatar-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--accent, #00B4D8);
+}
+
+.team-card-body {
+  padding: 28px 32px 36px;
+  h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 1px;
+    color: $white; margin-bottom: 8px;
+  }
+  p {
+    font-size: 14px; font-weight: 300; line-height: 1.75;
+    color: rgba(245,245,240,.58); margin-top: 14px;
+  }
+}
+
+.team-role {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+}
+
+.team-photo-slot {
+  height: 480px;
+  overflow: hidden;
+}
+
+.team-photo-img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  display: block;
+  transition: transform .6s ease;
+  &:hover { transform: scale(1.02); }
+}
+
 /* ── Responsive ──────────────────────────────────────────── */
 @media (max-width:1024px) {
   .about-section    { grid-template-columns:1fr; }
@@ -247,10 +381,13 @@ $step-colors: $cyan, $magenta, $yellow, $cyan;
   .process-grid     { grid-template-columns:repeat(2,1fr); gap:40px; &::after { display:none; } }
   .contact-inner    { grid-template-columns:1fr; }
   .about-badge      { right:0; }
+  .team-grid        { grid-template-columns:repeat(2,1fr); }
 }
 
 @media (max-width:768px) {
   .cmyk-deco        { display:none; }
   .form-row         { grid-template-columns:1fr; }
   .process-grid     { grid-template-columns:1fr; }
+  .team-grid        { grid-template-columns:1fr; }
+  .team-photo-slot  { height:240px; }
 }

@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideZonelessChangeDetection } from '@angular/core';
-import { provideRouter, withComponentInputBinding, withViewTransitions } from '@angular/router';
+import { provideRouter, withComponentInputBinding, withViewTransitions, withInMemoryScrolling } from '@angular/router';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
@@ -14,7 +14,8 @@ export const appConfig: ApplicationConfig = {
     provideRouter(
       routes,
       withViewTransitions(),
-      withComponentInputBinding()
+      withComponentInputBinding(),
+      withInMemoryScrolling({ anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled' })
     ),
 
     // HttpClient avec intercepteur JWT automatique

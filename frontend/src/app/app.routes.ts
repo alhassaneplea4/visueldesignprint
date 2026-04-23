@@ -32,6 +32,16 @@ export const routes: Routes = [
         path: 'events',
         loadComponent: () =>
           import('./pages/admin/events-manager/events-manager.component').then(m => m.EventsManagerComponent)
+      },
+      {
+        path: 'contacts',
+        loadComponent: () =>
+          import('./pages/admin/contacts-manager/contacts-manager.component').then(m => m.ContactsManagerComponent)
+      },
+      {
+        path: 'logs',
+        loadComponent: () =>
+          import('./pages/admin/activity-log/activity-log.component').then(m => m.ActivityLogComponent)
       }
     ]
   },

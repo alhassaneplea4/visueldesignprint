@@ -3,7 +3,8 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { EventsService } from '../../../core/services/events.service';
+import { EventsService }   from '../../../core/services/events.service';
+import { ContactsService } from '../../../core/services/contacts.service';
 
 @Component({
   selector: 'vdp-dashboard',
@@ -20,6 +21,8 @@ import { EventsService } from '../../../core/services/events.service';
     .stat-card:nth-child(2) { --c: #E63B7A; }
     .stat-card:nth-child(3) { --c: #F4C430; }
     .stat-card:nth-child(4) { --c: #22C55E; }
+    .stat-card:nth-child(5) { --c: #E63B7A; }
+    .stat-card:nth-child(6) { --c: #F4C430; }
     .stat-label { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #6B6B6B; margin-bottom: 10px; }
     .stat-value { font-family: 'Bebas Neue',sans-serif; font-size: 52px; line-height: 1; color: var(--c, #00B4D8); }
     /* Grid */
@@ -48,7 +51,16 @@ import { EventsService } from '../../../core/services/events.service';
     /* Empty */
     .empty { text-align: center; padding: 40px 20px; color: #6B6B6B; font-size: 14px; }
     .empty span { display: block; font-size: 36px; margin-bottom: 10px; }
-    @media (max-width: 1024px) { .stats { grid-template-columns: repeat(2,1fr); } }
+    /* Contacts recents */
+    .contact-row { display:flex; align-items:flex-start; gap:12px; padding:12px 0; border-bottom:1px solid rgba(255,255,255,.04); }
+    .contact-row:last-child { border-bottom:none; }
+    .dot { width:8px; height:8px; border-radius:50%; margin-top:4px; flex-shrink:0; }
+    .dot.unread { background:#E63B7A; }
+    .dot.read   { background:#333; }
+    .contact-name { font-size:13px; font-weight:600; color:#F5F5F0; }
+    .contact-meta { font-size:11px; color:#6B6B6B; margin-top:2px; }
+    .contact-msg  { font-size:12px; color:rgba(245,245,240,.5); margin-top:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:280px; }
+    @media (max-width: 1024px) { .stats { grid-template-columns: repeat(3,1fr); } }
     @media (max-width: 768px)  { .stats { grid-template-columns: repeat(2,1fr); } .grid { grid-template-columns: 1fr; } }
   `],
   template: `
@@ -72,6 +84,14 @@ import { EventsService } from '../../../core/services/events.service';
       <div class="stat-card">
         <div class="stat-label">Promotions</div>
         <div class="stat-value">{{ (svc.countByCategory()['Promotion'] || 0) }}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Demandes reçues</div>
+        <div class="stat-value">{{ contactsSvc.total() }}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Non lues</div>
+        <div class="stat-value">{{ contactsSvc.unreadCount() }}</div>
       </div>
     </div>
 
@@ -101,6 +121,28 @@ import { EventsService } from '../../../core/services/events.service';
         }
       </div>
 
+      <!-- Demandes récentes -->
+      <div class="panel">
+        <div class="panel-title">
+          Dernières demandes
+          <a routerLink="/admin/contacts" class="panel-link">Voir tout →</a>
+        </div>
+        @if (contactsSvc.contacts().length === 0) {
+          <div class="empty"><span>📭</span>Aucune demande</div>
+        } @else {
+          @for (c of recentContacts(); track c.id) {
+            <div class="contact-row">
+              <div class="dot" [class.unread]="!c.read" [class.read]="c.read"></div>
+              <div style="flex:1;min-width:0">
+                <div class="contact-name">{{ c.name }}</div>
+                <div class="contact-meta">{{ c.email }} @if (c.service) { · {{ c.service }} }</div>
+                <div class="contact-msg">{{ c.message }}</div>
+              </div>
+            </div>
+          }
+        }
+      </div>
+
       <!-- Par catégorie -->
       <div class="panel">
         <div class="panel-title">Par catégorie</div>
@@ -122,7 +164,8 @@ import { EventsService } from '../../../core/services/events.service';
   `
 })
 export class DashboardComponent implements OnInit {
-  svc = inject(EventsService);
+  svc         = inject(EventsService);
+  contactsSvc = inject(ContactsService);
 
   recent() {
     return [...this.svc.events()]
@@ -147,9 +190,12 @@ export class DashboardComponent implements OnInit {
     return map[cat] ?? 'badge-cyan';
   }
 
+  recentContacts() {
+    return this.contactsSvc.contacts().slice(0, 4);
+  }
+
   ngOnInit(): void {
-    if (this.svc.events().length === 0) {
-      this.svc.loadAll().subscribe();
-    }
+    if (this.svc.events().length === 0) this.svc.loadAll().subscribe();
+    if (this.contactsSvc.contacts().length === 0) this.contactsSvc.loadAll().subscribe();
   }
 }

@@ -95,24 +95,19 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     <header [class.scrolled]="scrolled()">
       <a routerLink="/" class="logo">
         <div class="logo-mark">
-          <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="42" height="42" fill="#161616"/>
-            <rect x="4" y="4" width="16" height="16" fill="#00B4D8" opacity="0.85"/>
-            <rect x="22" y="4" width="16" height="16" fill="#E63B7A" opacity="0.85"/>
-            <rect x="4" y="22" width="16" height="16" fill="#F4C430" opacity="0.85"/>
-            <rect x="22" y="22" width="16" height="16" fill="#1A1A1A"/>
-          </svg>
+          <img src="vdp.jpg" alt="Visuel Design Print" style="width: 42px; height: 42px;" class="">
         </div>
         <div class="logo-text">
           <span class="name">Visuel Design Print</span>
-          <span class="tagline">Imprimerie Grand Format</span>
+          <span class="tagline">Imprimerie Moderne</span>
         </div>
       </a>
 
       <nav>
-        <a routerLink="/" fragment="services" routerLinkActive="active">Services</a>
-        <a routerLink="/" fragment="about" routerLinkActive="active">À propos</a>
+        <a routerLink="/" fragment="services"   routerLinkActive="active">Services</a>
+        <a routerLink="/" fragment="about"      routerLinkActive="active">À propos</a>
         <a routerLink="/" fragment="actualites" routerLinkActive="active">Actualités</a>
+        <a routerLink="/" fragment="equipe"     routerLinkActive="active">Équipe</a>
         <a routerLink="/" fragment="contact" class="nav-cta">Devis gratuit</a>
       </nav>
 
@@ -123,10 +118,11 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     </header>
 
     <div class="mobile-nav" [class.open]="mobileOpen()">
-      <a routerLink="/" fragment="services"    (click)="closeMobile()">Services</a>
-      <a routerLink="/" fragment="about"       (click)="closeMobile()">À propos</a>
-      <a routerLink="/" fragment="actualites"  (click)="closeMobile()">Actualités</a>
-      <a routerLink="/" fragment="contact"     (click)="closeMobile()">Contact</a>
+      <a routerLink="/" fragment="services"   (click)="closeMobile()">Services</a>
+      <a routerLink="/" fragment="about"      (click)="closeMobile()">À propos</a>
+      <a routerLink="/" fragment="actualites" (click)="closeMobile()">Actualités</a>
+      <a routerLink="/" fragment="equipe"     (click)="closeMobile()">Équipe</a>
+      <a routerLink="/" fragment="contact"    (click)="closeMobile()">Contact</a>
     </div>
   `
 })

@@ -2,9 +2,10 @@ import {
   Component, inject, signal, ChangeDetectionStrategy, HostListener
 } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
-import { AuthService } from '../../../core/services/auth.service';
-import { EventsService } from '../../../core/services/events.service';
-import { ToastComponent } from '../../../shared/components/toast/toast.component';
+import { AuthService }    from '../../../core/services/auth.service';
+import { EventsService }   from '../../../core/services/events.service';
+import { ContactsService } from '../../../core/services/contacts.service';
+import { ToastComponent }  from '../../../shared/components/toast/toast.component';
 
 @Component({
   selector: 'vdp-admin-layout',
@@ -43,6 +44,7 @@ import { ToastComponent } from '../../../shared/components/toast/toast.component
     .nav-item:hover { color: #F5F5F0; background: rgba(255,255,255,.04); }
     .nav-item.active { color: #00B4D8; background: rgba(0,180,216,.08); border-left-color: #00B4D8; }
     .nav-icon { font-size: 16px; width: 20px; text-align: center; }
+    .nav-badge { background: #E63B7A; color: #fff; font-size: 9px; font-weight: 700; padding: 1px 6px; margin-left: auto; min-width: 20px; text-align: center; }
     .sb-footer { padding: 20px 24px; border-top: 1px solid rgba(255,255,255,.06); }
     .user-info { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
     .user-avatar { width: 36px; height: 36px; background: #00B4D8; color: #0D0D0D; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
@@ -87,15 +89,9 @@ import { ToastComponent } from '../../../shared/components/toast/toast.component
     <!-- Sidebar -->
     <aside class="sidebar" [class.open]="sidebarOpen()" [class.collapsed]="!sidebarOpen()">
       <div class="sb-logo">
-        <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="42" height="42" fill="#1A1A1A"/>
-          <rect x="4"  y="4"  width="16" height="16" fill="#00B4D8" opacity="0.85"/>
-          <rect x="22" y="4"  width="16" height="16" fill="#E63B7A" opacity="0.85"/>
-          <rect x="4"  y="22" width="16" height="16" fill="#F4C430" opacity="0.85"/>
-          <rect x="22" y="22" width="16" height="16" fill="#131313"/>
-        </svg>
+        <img src="vdp.jpg" alt="Visuel Design Print" style="width: 42px; height: 42px;" class="logo-img">
         <div class="sb-logo-text">
-          <span class="name">VD Print</span>
+          <span class="name">Visuel Design</span>
           <span class="role">Administration</span>
         </div>
         <span class="sb-badge">ADMIN</span>
@@ -108,6 +104,16 @@ import { ToastComponent } from '../../../shared/components/toast/toast.component
         </a>
         <a class="nav-item" routerLink="/admin/events" routerLinkActive="active" (click)="closeSidebarMobile()">
           <span class="nav-icon">📰</span>Actualités & Événements
+        </a>
+        <a class="nav-item" routerLink="/admin/contacts" routerLinkActive="active" (click)="closeSidebarMobile()">
+          <span class="nav-icon">✉️</span>Demandes de devis
+          @if (contacts.unreadCount() > 0) {
+            <span class="nav-badge">{{ contacts.unreadCount() }}</span>
+          }
+        </a>
+
+        <a class="nav-item" routerLink="/admin/logs" routerLinkActive="active" (click)="closeSidebarMobile()">
+          <span class="nav-icon">📋</span>Journal d'activités
         </a>
 
         <div class="nav-group-label" style="margin-top:20px">Accès rapide</div>
@@ -151,6 +157,7 @@ import { ToastComponent } from '../../../shared/components/toast/toast.component
 })
 export class AdminLayoutComponent {
   auth          = inject(AuthService);
+  contacts      = inject(ContactsService);
   private router = inject(Router);
 
   sidebarOpen = signal(true);
@@ -162,6 +169,7 @@ export class AdminLayoutComponent {
 
   constructor() {
     this.checkMobile();
+    this.contacts.loadAll().subscribe();
   }
 
   @HostListener('window:resize')

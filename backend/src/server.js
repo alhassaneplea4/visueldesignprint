@@ -6,8 +6,10 @@ const express  = require('express');
 const cors     = require('cors');
 const path     = require('path');
 
-const authRoutes   = require('./routes/auth.routes');
-const eventsRoutes = require('./routes/events.routes');
+const authRoutes     = require('./routes/auth.routes');
+const eventsRoutes   = require('./routes/events.routes');
+const contactsRoutes = require('./routes/contacts.routes');
+const logsRoutes     = require('./routes/logs.routes');
 
 const app  = express();
 const PORT = process.env.PORT || 3000;
@@ -27,8 +29,10 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // ── Routes API ───────────────────────────────────────────────
-app.use('/api/auth',   authRoutes);
-app.use('/api/events', eventsRoutes);
+app.use('/api/auth',     authRoutes);
+app.use('/api/events',   eventsRoutes);
+app.use('/api/contacts', contactsRoutes);
+app.use('/api/logs',     logsRoutes);
 
 // ── Health check ─────────────────────────────────────────────
 app.get('/api/health', (req, res) => {

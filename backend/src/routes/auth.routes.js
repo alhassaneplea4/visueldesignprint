@@ -4,6 +4,7 @@ const express  = require('express');
 const bcrypt   = require('bcryptjs');
 const jwt      = require('jsonwebtoken');
 const router   = express.Router();
+const { log }  = require('../utils/logger');
 
 /**
  * POST /api/auth/login
@@ -38,6 +39,7 @@ router.post('/login', async (req, res) => {
     { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
   );
 
+  log('LOGIN', `Connexion administrateur — ${username}`, username);
   res.json({
     success: true,
     token,
