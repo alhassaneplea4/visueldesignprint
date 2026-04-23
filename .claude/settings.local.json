@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node_modules/.bin/ng version *)",
+      "Bash(npm --version)",
+      "Bash(node node_modules/@angular/cli/bin/ng.js serve --open)",
+      "Bash(echo \"PID: $!\")",
+      "Bash(cmd.exe /c \"dir C:\\\\Users\\\\elhadj\\\\Desktop\\\\github\\\\visueldesignprint\\\\frontend\\\\node_modules\\\\@angular\\\\cli 2>&1\")",
+      "Bash(cmd.exe /c \"npm install 2>&1\")",
+      "PowerShell(Invoke-RestMethod -Uri \"http://localhost:3000/api/auth/login\" -Method POST -ContentType \"application/json\" -Body '{\"username\":\"admin\",\"password\":\"vdp2025\"}')"
+    ]
+  }
+}
