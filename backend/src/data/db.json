@@ -1,0 +1,31 @@
+{
+  "events": [
+    {
+      "id": "1700000000001",
+      "title": "Nouveau service : Covering véhicule complet",
+      "excerpt": "Visuel Design Print lance son service de covering véhicule. Transformez votre flotte en support de communication mobile avec nos impressions haute définition résistantes aux UV.",
+      "category": "Nouveau service",
+      "date": "2025-03-15",
+      "image": "",
+      "createdAt": "2025-03-15T10:00:00.000Z"
+    },
+    {
+      "id": "1700000000002",
+      "title": "Réalisation : 50 banderoles pour un événement national",
+      "excerpt": "Notre équipe a livré et posé plus de 50 banderoles grand format en 48h pour un événement institutionnel à Conakry. Qualité irréprochable, délais respectés.",
+      "category": "Réalisation",
+      "date": "2025-02-20",
+      "image": "",
+      "createdAt": "2025-02-20T08:30:00.000Z"
+    },
+    {
+      "id": "1700000000003",
+      "title": "Promotion : -20% sur toutes les bâches ce mois",
+      "excerpt": "Profitez de notre offre spéciale de saison : 20% de réduction sur toute commande de bâches publicitaires de plus de 5m². Offre valable jusqu'à la fin du mois.",
+      "category": "Promotion",
+      "date": "2025-04-01",
+      "image": "",
+      "createdAt": "2025-04-01T09:00:00.000Z"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "visuel-design-print",
+  "version": "1.0.0",
+  "description": "Site vitrine + admin pour Visuel Design Print",
+  "scripts": {
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd backend && npm run dev",
+    "frontend": "cd frontend && ng serve"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}

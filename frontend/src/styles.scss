@@ -1,0 +1,53 @@
+/* ── Google Fonts (déclarées dans index.html) ── */
+
+/* ── CSS Reset & Global ─────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background: #0D0D0D;
+  color: #F5F5F0;
+  font-family: 'Barlow', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar ──────────────────────────────── */
+::-webkit-scrollbar       { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #0D0D0D; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #00B4D8; }
+
+/* ── Selection ──────────────────────────────── */
+::selection { background: rgba(0,180,216,.3); color: #F5F5F0; }
+
+/* ── Focus visible ──────────────────────────── */
+:focus-visible { outline: 2px solid #00B4D8; outline-offset: 2px; }
+
+/* ── Links ──────────────────────────────────── */
+a { color: inherit; }
+
+/* ── Router transitions (View Transitions API) ─ */
+@keyframes fade-in  { from { opacity: 0; transform: translateY(12px); } }
+@keyframes fade-out { to   { opacity: 0; transform: translateY(-12px); } }
+
+::view-transition-old(root) { animation: 200ms ease fade-out; }
+::view-transition-new(root) { animation: 280ms ease fade-in;  }
+
+/* ── Utility ────────────────────────────────── */
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
