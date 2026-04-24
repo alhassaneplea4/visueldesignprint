@@ -53,20 +53,14 @@ import { RouterLink } from '@angular/router';
       <div class="footer-inner">
         <div>
           <a routerLink="/" class="logo">
-            <div class="logo-mark">
-              <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="42" height="42" fill="#161616"/>
-                <rect x="4" y="4" width="16" height="16" fill="#00B4D8" opacity="0.85"/>
-                <rect x="22" y="4" width="16" height="16" fill="#E63B7A" opacity="0.85"/>
-                <rect x="4" y="22" width="16" height="16" fill="#F4C430" opacity="0.85"/>
-                <rect x="22" y="22" width="16" height="16" fill="#1A1A1A"/>
-              </svg>
-            </div>
-            <div class="logo-text">
-              <span class="name">Visuel Design Print</span>
-              <span class="tagline">Imprimerie Grand Format</span>
-            </div>
-          </a>
+        <div class="logo-mark">
+          <img src="vdp.jpg" alt="Visuel Design Print" style="width: 42px; height: 42px;" class="">
+        </div>
+        <div class="logo-text">
+          <span class="name">Visuel Design Print</span>
+          <span class="tagline">Imprimerie Moderne</span>
+        </div>
+      </a>
           <p class="brand-desc">Votre partenaire d'impression grand format à Conakry. Qualité, rapidité, professionnalisme.</p>
           <div class="social-links">
             <a href="https://www.facebook.com/share/17NnQYVFwA/" target="_blank" class="social-link" aria-label="Facebook">
