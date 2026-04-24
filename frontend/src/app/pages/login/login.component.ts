@@ -28,7 +28,38 @@ import { AuthService } from '../../core/services/auth.service';
     .logo svg { width: 40px; height: 40px; flex-shrink: 0; }
     .logo-text .name { display: block; font-family: 'Bebas Neue',sans-serif; font-size: 18px; letter-spacing: 3px; color: #F5F5F0; }
     .logo-text .tagline { display: block; font-size: 10px; letter-spacing: 4px; color: #00B4D8; text-transform: uppercase; }
-    .title { font-family: 'Bebas Neue',sans-serif; font-size: 36px; letter-spacing: 2px; color: #F5F5F0; margin-bottom: 6px; }
+    @keyframes colorBlink {
+      0%    { color: #E63B7A; opacity: 1; }
+      11%   { color: #E63B7A; opacity: 1; }
+      12%   { color: #E63B7A; opacity: 0; }
+      13%   { color: #F4C430; opacity: 0; }
+      14%   { color: #F4C430; opacity: 1; }
+      25%   { color: #F4C430; opacity: 1; }
+      26%   { color: #F4C430; opacity: 0; }
+      27%   { color: #00B4D8; opacity: 0; }
+      28%   { color: #00B4D8; opacity: 1; }
+      39%   { color: #00B4D8; opacity: 1; }
+      40%   { color: #00B4D8; opacity: 0; }
+      41%   { color: #FF3B3B; opacity: 0; }
+      42%   { color: #FF3B3B; opacity: 1; }
+      53%   { color: #FF3B3B; opacity: 1; }
+      54%   { color: #FF3B3B; opacity: 0; }
+      55%   { color: #FFFFFF; opacity: 0; }
+      56%   { color: #FFFFFF; opacity: 1; }
+      67%   { color: #FFFFFF; opacity: 1; }
+      68%   { color: #FFFFFF; opacity: 0; }
+      69%   { color: #4ADE80; opacity: 0; }
+      70%   { color: #4ADE80; opacity: 1; }
+      81%   { color: #4ADE80; opacity: 1; }
+      82%   { color: #4ADE80; opacity: 0; }
+      83%   { color: #0D0D0D; opacity: 0; }
+      84%   { color: #0D0D0D; text-shadow: 0 0 10px rgba(255,255,255,.9); opacity: 1; }
+      95%   { color: #0D0D0D; opacity: 1; }
+      96%   { color: #0D0D0D; opacity: 0; }
+      97%   { color: #E63B7A; opacity: 0; }
+      100%  { color: #E63B7A; opacity: 1; }
+    }
+    .title { font-family: 'Bebas Neue',sans-serif; font-size: 36px; letter-spacing: 2px; color: #F5F5F0; margin-bottom: 6px; animation: colorBlink 28s linear infinite; }
     .subtitle { font-size: 13px; font-weight: 300; color: #6B6B6B; margin-bottom: 36px; }
     .error-box {
       background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.25);
@@ -62,20 +93,18 @@ import { AuthService } from '../../core/services/auth.service';
     <div class="page">
       <div class="box">
         <div class="logo">
-          <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="42" height="42" fill="#161616"/>
-            <rect x="4"  y="4"  width="16" height="16" fill="#00B4D8" opacity="0.85"/>
-            <rect x="22" y="4"  width="16" height="16" fill="#E63B7A" opacity="0.85"/>
-            <rect x="4"  y="22" width="16" height="16" fill="#F4C430" opacity="0.85"/>
-            <rect x="22" y="22" width="16" height="16" fill="#1A1A1A"/>
-          </svg>
-          <div class="logo-text">
-            <span class="name">Visuel Design Print</span>
-            <span class="tagline">Administration</span>
-          </div>
+          <a routerLink="/" class="logo">
+        <div class="logo-mark">
+          <img src="vdp.jpg" alt="Visuel Design Print" style="width: 42px; height: 42px;" class="">
+        </div>
+        <div class="logo-text">
+          <span class="name">Visuel Design Print</span>
+          <span class="tagline">Imprimerie Moderne</span>
+        </div>
+      </a>
         </div>
 
-        <div class="title">CONNEXION</div>
+        <div class="title hero-label">CONNEXION ADMIN</div>
         <p class="subtitle">Accédez au panneau d'administration</p>
 
         @if (errorMsg()) {
