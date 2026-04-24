@@ -307,6 +307,75 @@ $step-colors: $cyan, $magenta, $yellow, $cyan;
   textarea { resize:vertical; min-height:120px; }
 }
 
+/* ── Success panel (après soumission formulaire) ─────────── */
+.success-panel {
+  display: flex; flex-direction: column; align-items: flex-start;
+  padding: 44px 40px; gap: 20px;
+  background: rgba(0,180,216,.04);
+  border: 1px solid rgba(0,180,216,.18);
+  position: relative; overflow: hidden;
+
+  &::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, $cyan, $magenta, $yellow);
+  }
+}
+
+.success-icon {
+  width: 60px; height: 60px;
+  background: rgba(0,180,216,.12);
+  border: 1px solid rgba(0,180,216,.3);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.success-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: $cyan;
+}
+
+.success-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(32px, 4vw, 48px); letter-spacing: 1px;
+  color: $white; line-height: 1; margin: 0;
+  em { font-style: normal; color: $cyan; }
+}
+
+.success-msg {
+  font-size: 15px; font-weight: 300; line-height: 1.8;
+  color: rgba(245,245,240,.65); max-width: 420px;
+  strong { color: $white; font-weight: 600; }
+}
+
+.success-steps {
+  display: flex; flex-direction: column; gap: 8px; width: 100%;
+}
+
+.success-step {
+  display: flex; align-items: center; gap: 16px;
+  padding: 12px 16px;
+  background: rgba(255,255,255,.03);
+  border-left: 3px solid rgba(0,180,216,.4);
+
+  .ss-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; color: $cyan; min-width: 28px; line-height: 1;
+  }
+
+  p { font-size: 13px; font-weight: 400; color: rgba(245,245,240,.65); margin: 0; }
+}
+
+.btn-new-request {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid rgba(245,245,240,.2); color: rgba(245,245,240,.65);
+  padding: 11px 22px; font-family: 'Barlow', sans-serif;
+  font-size: 12px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; background: transparent; cursor: pointer;
+  transition: all .3s; margin-top: 4px;
+  svg { display: block; }
+  &:hover { border-color: $cyan; color: $cyan; }
+}
+
 /* ── Team ────────────────────────────────────────────────── */
 .team-grid {
   display: grid;
@@ -359,6 +428,31 @@ $step-colors: $cyan, $magenta, $yellow, $cyan;
 .team-role {
   font-size: 11px; font-weight: 600;
   letter-spacing: 2px; text-transform: uppercase;
+}
+
+.team-social {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+
+.team-social-link {
+  width: 30px; height: 30px;
+  border: 1px solid rgba(255,255,255,.1);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(245,245,240,.35);
+  text-decoration: none;
+  transition: all .25s;
+
+  svg { display: block; }
+
+  &:hover {
+    border-color: var(--accent, #00B4D8);
+    color: var(--accent, #00B4D8);
+    background: rgba(0,0,0,.15);
+  }
 }
 
 .team-photo-slot {

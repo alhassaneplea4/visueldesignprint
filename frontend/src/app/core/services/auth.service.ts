@@ -1,27 +1,22 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router }     from '@angular/router';
-import { tap }        from 'rxjs/operators';
-import { environment } from '@env/environment';
+import { Router } from '@angular/router';
+import { Observable, of, throwError } from 'rxjs';
+import { ActivityLogService } from './activity-log.service';
 
 export interface AuthUser {
   username: string;
   role    : string;
 }
 
-interface LoginResponse {
-  success: boolean;
-  token  : string;
-  user   : AuthUser;
-}
-
-const TOKEN_KEY = 'vdp_token';
-const USER_KEY  = 'vdp_user';
+const TOKEN_KEY  = 'vdp_token';
+const USER_KEY   = 'vdp_user';
+const ADMIN_USER = 'admin';
+const ADMIN_PASS = 'vdp2025';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private http   = inject(HttpClient);
-  private router = inject(Router);
+  private router  = inject(Router);
+  private logSvc  = inject(ActivityLogService);
 
   // ── Signals ──────────────────────────────────────────────
   readonly token       = signal<string | null>(this._getStoredToken());
@@ -29,20 +24,18 @@ export class AuthService {
   readonly isLoggedIn  = computed(() => !!this.token());
 
   // ── Login ─────────────────────────────────────────────────
-  login(username: string, password: string) {
-    return this.http.post<LoginResponse>(
-      `${environment.apiUrl}/auth/login`,
-      { username, password }
-    ).pipe(
-      tap(res => {
-        if (res.success) {
-          localStorage.setItem(TOKEN_KEY, res.token);
-          localStorage.setItem(USER_KEY, JSON.stringify(res.user));
-          this.token.set(res.token);
-          this.currentUser.set(res.user);
-        }
-      })
-    );
+  login(username: string, password: string): Observable<{ success: boolean; token: string; user: AuthUser }> {
+    if (username === ADMIN_USER && password === ADMIN_PASS) {
+      const token = `local_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+      const user: AuthUser = { username, role: 'admin' };
+      localStorage.setItem(TOKEN_KEY, token);
+      localStorage.setItem(USER_KEY, JSON.stringify(user));
+      this.token.set(token);
+      this.currentUser.set(user);
+      this.logSvc.addLog('LOGIN', `Connexion administrateur : ${username}`, username);
+      return of({ success: true, token, user });
+    }
+    return throwError(() => ({ error: { message: 'Identifiants incorrects' } }));
   }
 
   // ── Logout ────────────────────────────────────────────────

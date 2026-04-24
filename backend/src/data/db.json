@@ -1,6 +1,86 @@
 {
-  "contacts": [],
-  "logs": [],
+  "contacts": [
+    {
+      "id": "c_1776975317490_96f7ede0",
+      "name": "Elhadj Alhassana CAMARA",
+      "phone": "+224624629477",
+      "email": "astronetgn@gmail.com",
+      "service": "Bâches & Banderoles",
+      "message": "nnnnnnnnnnnnnnnnn",
+      "read": false,
+      "createdAt": "2026-04-23T20:15:17.491Z"
+    },
+    {
+      "id": "c_1776974921304_cd5e167b",
+      "name": "Elhadj Test",
+      "phone": "224",
+      "email": "test@test.com",
+      "service": "B�ches",
+      "message": "Test",
+      "read": true,
+      "createdAt": "2026-04-23T20:08:41.305Z"
+    }
+  ],
+  "logs": [
+    {
+      "id": "log_1776975417119_jlu9f",
+      "action": "UPDATE_CONTACT",
+      "label": "Demande de Elhadj Alhassana CAMARA marquée non lue",
+      "user": "admin",
+      "details": {
+        "id": "c_1776975317490_96f7ede0"
+      },
+      "createdAt": "2026-04-23T20:16:57.119Z"
+    },
+    {
+      "id": "log_1776975408180_bhxts",
+      "action": "UPDATE_CONTACT",
+      "label": "Demande de Elhadj Alhassana CAMARA marquée lue",
+      "user": "admin",
+      "details": {
+        "id": "c_1776975317490_96f7ede0"
+      },
+      "createdAt": "2026-04-23T20:16:48.180Z"
+    },
+    {
+      "id": "log_1776975394160_xn56w",
+      "action": "UPDATE_CONTACT",
+      "label": "Demande de Elhadj Test marquée lue",
+      "user": "admin",
+      "details": {
+        "id": "c_1776974921304_cd5e167b"
+      },
+      "createdAt": "2026-04-23T20:16:34.161Z"
+    },
+    {
+      "id": "log_1776975360804_sqed1",
+      "action": "LOGIN",
+      "label": "Connexion administrateur — admin",
+      "user": "admin",
+      "details": null,
+      "createdAt": "2026-04-23T20:16:00.804Z"
+    },
+    {
+      "id": "log_1776975317495_d48wv",
+      "action": "SUBMIT_CONTACT",
+      "label": "Nouvelle demande de devis de Elhadj Alhassana CAMARA (astronetgn@gmail.com)",
+      "user": "public",
+      "details": {
+        "service": "Bâches & Banderoles"
+      },
+      "createdAt": "2026-04-23T20:15:17.495Z"
+    },
+    {
+      "id": "log_1776974921308_8tsdr",
+      "action": "SUBMIT_CONTACT",
+      "label": "Nouvelle demande de devis de Elhadj Test (test@test.com)",
+      "user": "public",
+      "details": {
+        "service": "B�ches"
+      },
+      "createdAt": "2026-04-23T20:08:41.308Z"
+    }
+  ],
   "events": [
     {
       "id": "1700000000001",
