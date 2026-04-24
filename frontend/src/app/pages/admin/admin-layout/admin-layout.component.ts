@@ -15,6 +15,7 @@ import { ToastComponent }  from '../../../shared/components/toast/toast.componen
   styles: [`
     :host { display: flex; min-height: 100vh; background: #0D0D0D; }
     /* Sidebar */
+
     .sidebar {
       width: 260px; min-height: 100vh; background: #131313;
       border-right: 1px solid rgba(255,255,255,.06);
